@@ -1,0 +1,23 @@
+=== 1. Image features and performance P (manual default settings) ===
+Gc contours  min   91.24  max  290.63  |  Sobel rho +0.36 (p 0.025)*    Laplace rho +0.35 (p 0.028)*    Canny rho +0.31 (p 0.054)   
+T texture    min   10.87  max   64.76  |  Sobel rho -0.41 (p 0.008)**   Laplace rho -0.41 (p 0.008)**   Canny rho -0.32 (p 0.045)*  
+R = Gc/T     min    2.55  max   16.12  |  Sobel rho +0.78 (p 0.000)***  Laplace rho +0.77 (p 0.000)***  Canny rho +0.63 (p 0.000)***
+density %    min    0.91  max    4.35  |  Sobel rho +0.52 (p 0.001)***  Laplace rho +0.65 (p 0.000)***  Canny rho +0.46 (p 0.003)** 
+contrast     min   24.46  max   70.52  |  Sobel rho +0.13 (p 0.431)     Laplace rho +0.27 (p 0.087)     Canny rho +0.19 (p 0.230)   
+strong texture (low R)    Sobel P 19.7 %  Laplace P 17.0 %  Canny P 26.4 %
+medium R                  Sobel P 28.2 %  Laplace P 26.6 %  Canny P 34.8 %
+weak texture (high R)     Sobel P 37.4 %  Laplace P 34.4 %  Canny P 40.0 %
+
+=== 2-3. Best threshold per image and automatic rules (mean P, leave-one-out) ===
+Sobel: best threshold from 58 to 219, correlation with the mean gradient rho 0.79 (p 0.0000)
+   fixed 27.8 | k x max 27.9 | k x mean 29.2 | k x median 27.3 | percentile 28.2 | Otsu 17.8 | oracle 31.5
+Laplace: best threshold from 65 to 283, correlation with the mean gradient rho 0.82 (p 0.0000)
+   fixed 26.5 | k x max 26.7 | k x mean 27.8 | k x median 27.3 | percentile 27.3 | Otsu 26.2 | oracle 29.5
+Canny: best threshold from 38 to 216, correlation with the mean gradient rho 0.81 (p 0.0000)
+   fixed 34.2 | k x max 32.6 | k x mean 35.6 | k x median 35.4 | percentile 33.4 | Otsu 24.5 | oracle 38.0
+
+=== 4. Local threshold: response - alpha x Gaussian mean (sigma) of the neighbourhood, threshold = k x mean ===
+Sobel: best alpha 1.0, sigma 4, k 8.1 -> P 32.5 % (leave-one-out 31.6 %)
+Canny: best alpha 0.5, sigma 8, k 5.4 -> P 36.2 % (leave-one-out 36.2 %)
+
+Output: results/analysis/analysis.txt, features.csv, best_thresholds.csv
